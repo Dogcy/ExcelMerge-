@@ -108,10 +108,16 @@ namespace MergeTools
     }
     internal static class Merge
     {
-        public static bool MergeData(string filePath, List<LocationModel> locations)
+        public static bool MergeData(string filePath, List<LocationModel> locations, List<BomModel> bom)
         {
             try
             {
+
+                foreach (var item in locations)
+                {
+                    var getitem = bom.Where(c => c.PCBLocation.Contains(item.PCBLocationItem)).FirstOrDefault(); //狀況1  有可能會沒有Bom component location資料 所以用null
+                    item.UseComponent = getitem?.Component ?? "Null";
+                }
 
 
                 IWorkbook workbook = null;

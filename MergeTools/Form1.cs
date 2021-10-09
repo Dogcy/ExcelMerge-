@@ -57,7 +57,8 @@ namespace MergeTools
                 {
                     List<BomModel> bom = Bom.GetBomModel(bomPath);
                     List<LocationModel> locations = LocationC.GetLocationModel(locationPath);
-                    bool isFinish = Merge.MergeData(locationPath, locations);
+                  
+                    bool isFinish = Merge.MergeData(locationPath, locations, bom);
                     if (isFinish)
                     {
                         this.label1.Text = "完成";
