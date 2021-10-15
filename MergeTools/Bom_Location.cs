@@ -1,5 +1,6 @@
 ﻿using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -73,6 +74,7 @@ namespace MergeTools
                 workbook = new HSSFWorkbook(fs);
                 ISheet sheet = workbook.GetSheetAt(0);
                 List<BomModel> boms = new List<BomModel>();
+                var checkSeparateChar = string.Empty;
                 if (sheet != null)
                 {
                     int rowCount = sheet.LastRowNum;
@@ -88,7 +90,15 @@ namespace MergeTools
                         // 將PCB Location處理
                         if (cellValue2 != "")
                         {
-                            var Pcbitems = cellValue2.Split(";").ToList();
+                            if (checkSeparateChar == "")
+                            {
+                                checkSeparateChar = cellValue2.Any(c => c == ';')
+                                    ? ";" : cellValue2.Any(c => c == ':') ?
+                                    ":" : cellValue2.Any(c => c == ',') ?
+                                    "," : cellValue2.Any(c => c == ' ') ? " " : "";
+                            }
+                            var Pcbitems = cellValue2.Split(checkSeparateChar).ToList();
+                            Pcbitems = Pcbitems.Select(c => c.Replace(" ", "")).ToList();
                             Pcbitems.RemoveAt(Pcbitems.Count - 1); //移除最後一比空字串
                             bom.PCBLocation = Pcbitems;
 
