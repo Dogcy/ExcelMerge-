@@ -16,7 +16,7 @@ namespace MergeTools
 {
     public partial class Form1 : Form
     {
-
+        public static Form1 frm1 = null;//建立一個自身的靜態物件
         public Form1()
         {
             InitializeComponent();
@@ -57,7 +57,7 @@ namespace MergeTools
                 {
                     List<BomModel> bom = Bom.GetBomModel(bomPath);
                     List<LocationModel> locations = LocationC.GetLocationModel(locationPath);
-                  
+
                     bool isFinish = Merge.MergeData(locationPath, locations, bom);
                     if (isFinish)
                     {
@@ -79,6 +79,20 @@ namespace MergeTools
 
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+         
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.Show();
+        }
     }
 }
