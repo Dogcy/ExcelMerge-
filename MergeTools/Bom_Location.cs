@@ -31,7 +31,14 @@ namespace MergeTools
             {
                 IWorkbook workbook = null;
                 FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-                workbook = new HSSFWorkbook(fs);
+                if (fs.Name.IndexOf(".xlsx") > 0) // 2007版本 
+                {
+                    workbook = new XSSFWorkbook(fs); //xlsx數據讀入workbook 
+                }
+                else if (fs.Name.IndexOf(".xls") > 0) // 2003版本 
+                {
+                    workbook = new HSSFWorkbook(fs); //xls數據讀入workbook 
+                }
                 ISheet sheet = workbook.GetSheetAt(0);
                 List<LocationModel> locationModels = new List<LocationModel>();
                 if (sheet != null)
@@ -71,7 +78,14 @@ namespace MergeTools
 
                 IWorkbook workbook = null;
                 FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-                workbook = new HSSFWorkbook(fs);
+                if (fs.Name.IndexOf(".xlsx") > 0) // 2007版本 
+                {
+                    workbook = new XSSFWorkbook(fs); //xlsx數據讀入workbook 
+                }
+                else if (fs.Name.IndexOf(".xls") > 0) // 2003版本 
+                {
+                    workbook = new HSSFWorkbook(fs); //xls數據讀入workbook 
+                }
                 ISheet sheet = workbook.GetSheetAt(0);
                 List<BomModel> boms = new List<BomModel>();
                 var checkSeparateChar = string.Empty;
@@ -132,7 +146,15 @@ namespace MergeTools
 
                 IWorkbook workbook = null;
                 FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite);
-                workbook = new HSSFWorkbook(fs);
+     
+                if (fs.Name.IndexOf(".xlsx") > 0) // 2007版本 
+                {
+                    workbook = new XSSFWorkbook(fs); //xlsx數據讀入workbook 
+                }
+                else if (fs.Name.IndexOf(".xls") > 0) // 2003版本 
+                {
+                    workbook = new HSSFWorkbook(fs); //xls數據讀入workbook 
+                }
                 ISheet sheet = workbook.GetSheetAt(0);
                 foreach (var location in locations)
                 {
